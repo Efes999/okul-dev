@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <link rel="stylesheet" href="css/2416501081.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etkinlik Güncelle - Kampüs Etkinlikleri</title>
+</head>
+<body>
+<header>
+    <h1>Etkinlik Güncelle</h1>
+    <nav aria-label="Ana menü">
+        <a href="index.html">Ana Sayfa</a> 
+        <a href="etkinlik-ekle.html">Ekle</a> 
+        <a href="etkinlik-guncelle.html">Güncelle</a>
+    </nav>
+</header>
+
+<main>
+    <form action="#" method="post">
+        <p>
+            <label for="etkinlik-adi">Etkinlik Adı</label><br>
+            <input type="text" id="etkinlik-adi" name="etkinlik-adi" value="Kariyer Günleri" required>
+        </p>
+
+        <p>
+            <label for="kategori">Kategori</label><br>
+            <select id="kategori" name="kategori" required>
+                <option value="seminer" selected>Seminer</option>
+                <option value="atolye">Atölye</option>
+                <option value="konferans">Konferans</option>
+                <option value="spor">Spor</option>
+            </select>
+        </p>
+
+        <p>
+            <label for="tarih">Tarih</label><br>
+            <input type="date" id="tarih" name="tarih" value="2026-10-12" required>
+        </p>
+
+        <p>
+            <label for="aciklama">Açıklama</label><br>
+            <textarea id="aciklama" name="aciklama" rows="6" cols="40" required>Mezun söyleşileri</textarea>
+        </p>
+
+        <button type="submit">Güncelle</button>
+    </form>
+</main>
+
+<footer>
+    <p>Efe SARIHAN 2416501081 2026</p>
+</footer>
+</body>
+</html>
