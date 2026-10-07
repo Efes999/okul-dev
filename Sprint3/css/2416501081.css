@@ -218,3 +218,68 @@ footer {
         padding: 0.4rem;
     }
 }
+.basari-mesaji {
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: #f4fff4;
+    color: green;
+}
+
+.basari-mesaji pre {
+    margin-bottom: 0;
+    color: black;
+    white-space: pre-wrap;
+}
+
+.hata-mesaji {
+    margin-top: 15px;
+    padding: 12px;
+    border: 1px solid red;
+    background-color: #fff5f5;
+    color: red;
+}
+
+.alan-hata {
+    display: block;
+    margin-top: 5px;
+    color: red;
+    font-size: 14px;
+}
+
+[aria-invalid="true"] {
+    border: 1px solid red;
+}
+.basari-mesaji {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 2px solid green;
+    border-radius: 8px;
+    background: #f2fff2;
+    color: green;
+}
+
+.basari-mesaji pre {
+    color: #222;
+    white-space: pre-wrap;
+}
+
+.hata-mesaji {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 2px solid red;
+    border-radius: 8px;
+    background: #fff5f5;
+    color: red;
+}
+
+.alan-hata {
+    display: block;
+    color: red;
+    margin-top: 0.3rem;
+}
+
+[aria-invalid="true"] {
+    border: 2px solid red;
+}

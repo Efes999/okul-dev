@@ -1,7 +1,7 @@
 export const events = [
     {
         id: "event-1",
-        title: "Kariyer Günleri 2026",
+        title: "Kariyer Günleri ",
         category: "Seminer",
         date: "12-10-2026",
         time: "14:00",
