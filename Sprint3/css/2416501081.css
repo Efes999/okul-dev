@@ -1,0 +1,220 @@
+:root {
+    --no: 2416501081;
+    --ton: 1;
+    --renk-ana: hsl(var(--ton) 65% 38%);
+    --renk-zemin: hsl(var(--ton) 30% 97%);
+    --font: Verdana, sans-serif;
+    --bosluk-m: 1rem;
+    --kose: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font);
+    background: var(--renk-zemin);
+    color: #222;
+    line-height: 1.6;
+}
+
+header {
+    background: var(--renk-ana);
+    color: white;
+    padding: 1.5rem;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--kose);
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+main {
+    width: min(1100px, 92%);
+    margin: 2rem auto;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--bosluk-m);
+}
+
+.event-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: var(--kose);
+    padding: 1rem;
+}
+
+.event-card h3 {
+    margin-top: 0;
+    color: var(--renk-ana);
+}
+
+.event-card a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--renk-ana);
+    font-weight: bold;
+}
+
+.detail-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+}
+
+.detail-layout img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: var(--kose);
+}
+
+dl {
+    background: white;
+    padding: 1rem;
+    border-radius: var(--kose);
+}
+
+dt {
+    font-weight: bold;
+    color: var(--renk-ana);
+    margin-top: 0.75rem;
+}
+
+dt:first-child {
+    margin-top: 0;
+}
+
+dd {
+    margin-left: 0;
+}
+
+form {
+    max-width: 700px;
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--kose);
+}
+
+form div {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #aaa;
+    border-radius: var(--kose);
+    font: inherit;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+button {
+    background: var(--renk-ana);
+    color: white;
+    border: 0;
+    border-radius: var(--kose);
+    padding: 0.7rem 1.2rem;
+    font: inherit;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    background: #eee;
+}
+
+@media (max-width: 760px) {
+    header {
+        padding: 1rem;
+    }
+
+    nav {
+        flex-direction: column;
+    }
+
+    nav a {
+        display: block;
+    }
+
+    main {
+        width: 94%;
+        margin: 1.5rem auto;
+    }
+
+    .event-grid,
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .event-card {
+        width: 100%;
+    }
+
+    .detail-layout img {
+        max-width: 100%;
+    }
+
+    form {
+        padding: 1rem;
+    }
+    
+    table {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    th,
+    td {
+        padding: 0.4rem;
+    }
+}
