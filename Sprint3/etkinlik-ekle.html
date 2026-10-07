@@ -1,56 +1,119 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <link rel="stylesheet" href="css/2416501081.css">
-    <script type="module" src="js/event-list.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/2416501081.css">
+
+    <script type="module" src="js/event-form.js"></script>
+
     <title>Etkinlik Ekle - Kampüs Etkinlikleri</title>
 </head>
+
 <body>
+
 <header>
     <h1>Etkinlik Ekle</h1>
+
     <nav aria-label="Ana menü">
-        <a href="index.html">Ana Sayfa</a> 
-        <a href="etkinlik-ekle.html">Ekle</a> 
-        <a href="etkinlik-guncelle.html">Güncelle</a>
+        <a href="index.html">Ana Sayfa</a>
+        <a href="etkinlikler.html">Etkinlikler</a>
+        <a href="etkinlik-ekle.html">Ekle</a>
     </nav>
 </header>
 
 <main>
-    <form id="event-form">
+
+    <form id="event-form" novalidate>
+
         <p>
-            <label for="etkinlik-adi">Etkinlik Adı</label><br>
-            <input type="text" id="etkinlik-adi" name="etkinlik-adi" required>
+            <label for="title">Etkinlik Adı</label>
+            <input
+                type="text"
+                id="title"
+                name="title"
+            >
         </p>
 
         <p>
-            <label for="kategori">Kategori</label><br>
-            <select id="kategori" name="kategori" required>
+            <label for="category">Kategori</label>
+
+            <select
+                id="category"
+                name="category"
+            >
                 <option value="">Seçiniz</option>
-                <option value="seminer">Seminer</option>
-                <option value="atolye">Atölye</option>
-                <option value="konferans">Konferans</option>
-                <option value="spor">Spor</option>
+                <option value="Seminer">Seminer</option>
+                <option value="Atölye">Atölye</option>
+                <option value="Konferans">Konferans</option>
+                <option value="Spor">Spor</option>
             </select>
         </p>
 
         <p>
-            <label for="tarih">Tarih</label><br>
-            <input type="date" id="tarih" name="tarih" required>
+            <label for="date">Tarih</label>
+
+            <input
+                type="date"
+                id="date"
+                name="date"
+            >
         </p>
 
         <p>
-            <label for="aciklama">Açıklama</label><br>
-            <textarea id="aciklama" name="aciklama" rows="6" cols="40" required></textarea>
+            <label for="time">Saat</label>
+
+            <input
+                type="time"
+                id="time"
+                name="time"
+            >
+        </p>
+
+        <p>
+            <label for="location">Yer</label>
+
+            <input
+                type="text"
+                id="location"
+                name="location"
+            >
+        </p>
+
+        <p>
+            <label for="capacity">Kontenjan</label>
+
+            <input
+                type="number"
+                id="capacity"
+                name="capacity"
+                min="1"
+                max="1000"
+            >
+        </p>
+
+        <p>
+            <label for="description">Açıklama</label>
+
+            <textarea
+                id="description"
+                name="description"
+                rows="6"
+            ></textarea>
         </p>
 
         <button type="submit">Kaydet</button>
+
+        <div id="form-mesaj"></div>
+
     </form>
+
 </main>
 
 <footer>
     <p>Efe SARIHAN 2416501081 2026</p>
 </footer>
+
 </body>
 </html>
