@@ -1,17 +1,7 @@
-import type { MouseEvent } from "react";
+import { Link } from "react-router-dom";
 import type { CampusEvent } from "../../types/campus-event";
-import { toISODate, formatDate } from "../../utils/format-date";
-
-interface EventCardProps {
-  event: CampusEvent;
-  onShowDetail: (id: string) => void;
-}
-
-function EventCard({ event, onShowDetail }: EventCardProps) {
-  function showDetail(e: MouseEvent<HTMLAnchorElement>) {
-    e.preventDefault();
-    onShowDetail(event.id);
-  }
+import { formatDate, toISODate } from "../../utils/format-date";
+export default function EventCard({ event }: { event: CampusEvent }) {
   return (
     <article className="kart event-card">
       <div className="kart-ust">
@@ -20,28 +10,11 @@ function EventCard({ event, onShowDetail }: EventCardProps) {
       </div>
       <h3>{event.title}</h3>
       <dl className="kart-bilgiler">
-        <div>
-          <dt>Tarih</dt>
-          <dd>
-            <time dateTime={toISODate(event.date)}>{formatDate(event.date)}</time>
-            {" · "}
-            <time dateTime={event.time}>{event.time}</time>
-          </dd>
-        </div>
+        <div><dt>Tarih</dt><dd><time dateTime={toISODate(event.date)}>{formatDate(event.date)}</time> · {event.time}</dd></div>
         <div><dt>Yer</dt><dd>{event.location}</dd></div>
-        <div><dt>Kontenjan</dt><dd>{event.capacity} kişi</dd></div>
       </dl>
       <p className="kart-aciklama">{event.description}</p>
-      <a
-        href="#detay"
-        className="kart-baglanti"
-        onClick={showDetail}
-        aria-label={`${event.title} etkinliğinin detaylarını gör`}
-      >
-        Detayları gör <span aria-hidden="true">→</span>
-      </a>
+      <Link className="kart-baglanti" to={`/events/${event.id}`}>Detayları gör <span aria-hidden="true">→</span></Link>
     </article>
   );
 }
-
-export default EventCard;

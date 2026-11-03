@@ -1,25 +1,35 @@
-import type { ReactNode } from "react";
+import { useEffect } from "react";
+import { useLocation, useMatch } from "react-router-dom";
+import { useEvents } from "../../context/EventsContext";
+import Navigation from "./Navigation";
 
-interface HeaderProps {
-  title: string;
-  text?: string;
-  children?: ReactNode;
-}
-
-/** Başlık ve açıklama props olarak App'ten gelir; menü, children alanındadır. */
-function Header({ title, text, children }: HeaderProps) {
+const titles: Record<string, string> = {
+  "/": "Kampüs Etkinlikleri", "/events": "Tüm Etkinlikler", "/login": "Giriş Yap",
+  "/register": "Kayıt Ol", "/forgot-password": "Şifremi Unuttum", "/admin": "Etkinlik Yönetimi",
+  "/admin/new": "Yeni Etkinlik", 
+};
+export default function Header() {
+  const location = useLocation();
+  const { events } = useEvents();
+  const detail = useMatch("/events/:id");
+  const editing = useMatch("/admin/:id/edit");
+  const found = events.find((item) => item.id === detail?.params.id);
+  const title = detail ? (found?.title.trim() ?? "Etkinlik Bulunamadı")
+    : editing ? "Etkinlik Düzenle" : titles[location.pathname] ?? "Sayfa Bulunamadı";
+  useEffect(() => { document.title = `${title} | Kampüs Etkinlikleri`; }, [title]);
   return (
     <header className="site-baslik">
       <div className="header-inner">
-        <div className="baslik-grubu">
-          <p className="ust-etiket">2026 • Kampüs yaşamı</p>
-          <h1>{title}</h1>
-          <p className="baslik-aciklama">{text}</p>
+        <div className="brand-row">
+          <div className="brand-symbol" aria-hidden="true">K</div>
+          <div className="brand-copy">
+            <p className="ust-etiket">KAMPÜS YAŞAMI · 2026</p>
+            <h1>{title}</h1>
+            <p className="baslik-aciklama">Fakültedeki seminer, atölye ve söyleşileri tek yerden takip edin.</p>
+          </div>
         </div>
-        {children}
+        <Navigation />
       </div>
     </header>
   );
 }
-
-export default Header;

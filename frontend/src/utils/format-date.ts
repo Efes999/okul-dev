@@ -1,13 +1,16 @@
-/** Sprint 3 tarihlerini sıralama ve HTML dateTime için ISO biçimine çevirir. */
-export function toISODate(sprint3Date: string): string {
-  const [day, month, year] = sprint3Date.split("-");
+/** Veri kayıtları GG-AA-YYYY, HTML date input ISO biçimindedir. */
+export function toISODate(value: string): string {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  const [day, month, year] = value.split("-");
   return `${year}-${month}-${day}`;
 }
-
-/** Kullanıcının gördüğü tarihi Sprint 4'teki gibi Türkçe yazar. */
-export function formatDate(sprint3Date: string): string {
-  const isoDate = toISODate(sprint3Date);
-  return new Date(`${isoDate}T12:00:00`).toLocaleDateString("tr-TR", {
-    day: "numeric", month: "long", year: "numeric",
-  });
+export function toStoredDate(value: string): string {
+  if (/^\d{2}-\d{2}-\d{4}$/.test(value)) return value;
+  const [year, month, day] = value.split("-");
+  return `${day}-${month}-${year}`;
+}
+export function formatDate(value: string): string {
+  const isoDate = toISODate(value);
+  const parsed = new Date(`${isoDate}T12:00:00`);
+  return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
 }

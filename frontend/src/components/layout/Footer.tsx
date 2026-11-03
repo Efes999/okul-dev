@@ -1,11 +1,3 @@
-/** Sprint 4 görünümünü aynen koruyan ortak alt bilgi. */
-function Footer() {
-  return (
-    <footer className="site-footer">
-      <p>Kampüs Etkinlikleri · Efe SARIHAN · 2416501081 · 2026</p>
-      <p>Sprint 4 — Vite + TypeScript + React</p>
-    </footer>
-  );
+export default function Footer() {
+  return <footer className="site-footer"><span>Kampüs Etkinlikleri · Efe SARIHAN · 2416501081 · 2026</span><span>Sprint 6 · React Router + Context</span></footer>;
 }
-
-export default Footer;

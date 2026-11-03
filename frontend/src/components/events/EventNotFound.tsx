@@ -1,16 +1,4 @@
-/** Dokuzuncu küçük bileşen: Sprint 4'teki geçersiz detay ekranı. */
-interface EventNotFoundProps {
-  onBack: () => void;
+import { Link } from "react-router-dom";
+export default function EventNotFound() {
+  return <div className="bos-sonuc" role="alert"><h2>Etkinlik bulunamadı</h2><p>Bu etkinlik silinmiş veya bağlantı geçersiz olabilir.</p><Link className="ana-buton" to="/events">Etkinliklere dön</Link></div>;
 }
-
-function EventNotFound({ onBack }: EventNotFoundProps) {
-  return (
-    <section className="icerik-bolumu hata-mesaji" role="alert">
-      <h2>Etkinlik bulunamadı</h2>
-      <p>Seçtiğin etkinlik silinmiş veya geçersiz olabilir.</p>
-      <button type="button" className="ana-buton" onClick={onBack}>Listeye dön</button>
-    </section>
-  );
-}
-
-export default EventNotFound;
