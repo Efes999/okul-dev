@@ -1,14 +1,14 @@
 # Kampüs Etkinlikleri
 
-**Sprint 6 · Web Programlama Vize Projesi**  
-React, TypeScript, React Router ve Context API ile geliştirilen, kampüs etkinliklerinin keşfedilmesini ve yönetilmesini sağlayan duyarlı (responsive) tek sayfalı web uygulaması.
+**Sprint 6 + Sprint 7 · Web Programlama Projesi**  
+React, TypeScript, React Router ve Context API ile geliştirilen duyarlı (responsive) kampüs etkinlikleri arayüzü; Sprint 7 kapsamında eklenen Node.js/Express REST API ile aynı depoda sunulmaktadır.
 
 **Geliştirici:** Efe SARIHAN · **Öğrenci No:** 2416501081  
-**Teknolojiler:** React 19 · TypeScript 5 · Vite 7 · React Router 7 · Context API  
+**Teknolojiler:** React 19 · TypeScript 5 · Vite 7 · React Router 7 · Context API · Node.js · Express  
 **Kaynak kod:** [GitHub — okul-dev](https://github.com/Efes999/okul-dev)  
 **Canlı demo:** https://efesarihan-frontend.vercel.app/
 
-> **Proje kapsamı:** Sprint 6 / vize yönergesi kapsamında frontend uygulamasıdır. Gerçek kullanıcı hesapları, sunucu tarafı kimlik doğrulama ve kalıcı veritabanı bulunmaz. Etkinlik değişiklikleri uygulama açıkken React state'inde tutulur.
+> **Proje kapsamı:** Sprint 6'da geliştirilen frontend'e Sprint 7'de ayrı bir Express backend eklenmiştir. Frontend etkinlikleri React state'inde, backend ise örnek etkinlikleri sunucu belleğinde yönetir. İki katman henüz API üzerinden birbirine bağlanmamıştır; gerçek kullanıcı hesapları, kimlik doğrulama ve kalıcı veritabanı bulunmaz.
 
 ## İçindekiler
 
@@ -19,6 +19,7 @@ React, TypeScript, React Router ve Context API ile geliştirilen, kampüs etkinl
 - [Sayfalar ve yönlendirme](#sayfalar-ve-yönlendirme)
 - [Proje yapısı](#proje-yapısı)
 - [Mimari ve veri yönetimi](#mimari-ve-veri-yönetimi)
+- [Sprint 7 — Backend API](#sprint-7--backend-api)
 - [Form doğrulama kuralları](#form-doğrulama-kuralları)
 - [Test ve kalite kontrol](#test-ve-kalite-kontrol)
 - [Vercel dağıtımı](#vercel-dağıtımı)
@@ -29,7 +30,9 @@ React, TypeScript, React Router ve Context API ile geliştirilen, kampüs etkinl
 
 **Kampüs Etkinlikleri**, öğrencilerin seminer, atölye, söyleşi ve yarışmaları tek yerden inceleyebildiği; yönetim ekranında ise etkinlikleri ekleyip düzenleyebildiği veya silebildiği bir React uygulamasıdır. Sprint 5'te oluşturulan yeniden kullanılabilir bileşen mimarisi, Sprint 6'da gerçek URL yönlendirmeleri ve uygulama genelinde paylaşılan Context state ile genişletilmiştir.
 
-Uygulama başlangıçta **6 örnek etkinlik** gösterir. Etkinlik ekleme, güncelleme ve silme işlemleri bütün ilgili sayfalara anında yansır. Sayfa yenilendiğinde başlangıç verileri yeniden yüklenir; bu davranış ders yönergesinin istemci tarafı kapsamıyla uyumludur.
+Frontend başlangıçta **6 örnek etkinlik** gösterir. Etkinlik ekleme, güncelleme ve silme işlemleri bütün ilgili sayfalara anında yansır. Sayfa yenilendiğinde başlangıç verileri yeniden yüklenir; bu davranış ders yönergesinin istemci tarafı kapsamıyla uyumludur.
+
+**Sprint 7** ile projeye sağlık kontrolü, etkinlik listeleme/filtreleme, ID ile detay getirme ve veri doğrulamalı etkinlik oluşturma işlemlerini sunan Express tabanlı bir REST API eklenmiştir.
 
 ## Temel özellikler
 
@@ -44,6 +47,8 @@ Uygulama başlangıçta **6 örnek etkinlik** gösterir. Etkinlik ekleme, günce
 | Hesap ekranları | Giriş, kayıt ve şifremi unuttum için eğitim amaçlı form doğrulama ekranları |
 | Yönlendirme | React Router ile 10 rota; geçersiz adreslerde 404 görünümü |
 | Duyarlı tasarım | Dar ekranlarda yönetim tablosunun kart düzeninde gösterimi |
+| Backend API (Sprint 7) | `GET` ve `POST` uç noktaları, kategori filtresi, 400/404 hata yanıtları |
+| API testleri | Node.js ile otomatik testler ve Postman koleksiyonu |
 
 ## Teknoloji yığını
 
@@ -53,11 +58,15 @@ Uygulama başlangıçta **6 örnek etkinlik** gösterir. Etkinlik ekleme, günce
 - **Context API:** `EventsProvider` ve `useEvents()` ile ortak etkinlik state'i
 - **Vite 7:** Geliştirme sunucusu ve üretim derlemesi
 - **CSS:** Mobil uyumlu bileşen ve yönetim ekranı stilleri
-- **Node.js test çalıştırıcısı:** Veri işlemleri, doğrulama ve proje yapısı testleri
+- **Node.js + Express:** REST API, yönlendirme ve istek işleme
+- **CORS ve dotenv:** Backend erişimi ve ortam değişkeni yapılandırması
+- **Node.js test çalıştırıcısı:** Frontend ve backend için ayrı otomatik testler
 
 ## Kurulum ve çalıştırma
 
-**Gereksinimler:** Node.js **22.12+** ve npm. Aşağıdaki komutları deponun kök dizininden çalıştırın.
+**Gereksinimler:** Node.js **22.12+** ve npm. Frontend ve backend, deponun kök dizininden ayrı terminallerde başlatılır.
+
+**Frontend:**
 
 ```bash
 cd frontend
@@ -82,11 +91,21 @@ npm run build
 npm run preview
 ```
 
-**Otomatik testler:**
+**Frontend otomatik testleri** (`frontend/` klasöründe):
 
 ```bash
 npm test
 ```
+
+**Backend (Sprint 7)** — ayrı bir terminalde, depo kökünden:
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+Backend varsayılan olarak **http://localhost:3000** adresinde çalışır. Sunucu hazır olduğunda `http://localhost:3000/health` üzerinden `200 OK` yanıtı alınabilir. Gerekirse `backend/.env.example` örnek alınarak yerel `.env` dosyası oluşturulabilir; `.env` Git'e eklenmez.
 
 ## Sayfalar ve yönlendirme
 
@@ -137,6 +156,24 @@ kampus-etkinlik/
     └── vercel.json            # SPA yönlendirme kuralı
 ```
 
+Sprint 7 ile eklenen backend dizini:
+
+```text
+backend/
+├── src/
+│   ├── app.js                 # Express uygulaması
+│   ├── server.js              # Sunucu başlangıcı
+│   ├── controllers/           # İstek işleyicileri
+│   ├── routes/                # API rotaları
+│   └── data/                  # Bellekte tutulan örnek etkinlikler
+├── requests/
+│   └── kampus-api.json        # Postman koleksiyonu
+├── tests/                     # Otomatik API ve yapı testleri
+├── .env.example
+├── package.json
+└── README.md                  # Backend kullanım notları
+```
+
 ## Mimari ve veri yönetimi
 
 Uygulama, **üst seviyede ortak state / alt seviyede tekrar kullanılabilir bileşenler** yaklaşımıyla tasarlanmıştır.
@@ -153,6 +190,30 @@ Uygulama, **üst seviyede ortak state / alt seviyede tekrar kullanılabilir bile
 Veri dönüşümleri `src/utils/event-operations.ts` içinde saf fonksiyonlara ayrılmıştır. Eklemede yeni dizi oluşturulur, güncellemede `map()`, silmede `filter()` kullanılır. Mevcut state dizisi doğrudan değiştirilmez. Böylece React güncellenen veriyi yeniden render eder.
 
 **Örnek kullanıcı akışı:** `/admin/new` ekranında formu doldur → kaydet → `/admin` ekranına dön → etkinliğin `/events` ve ana sayfada güncellenen listelere yansıdığını gör.
+
+Frontend'deki Context API veri yönetimi ile Sprint 7 backend'inin bellek içi veri yönetimi **birbirinden bağımsızdır**. Bu nedenle API'ye `POST` ile eklenen etkinlik, mevcut frontend listesine otomatik yansımaz.
+
+## Sprint 7 — Backend API
+
+Sprint 7 backend'i, Express üzerinde `http://localhost:3000` adresinden erişilebilen temel bir etkinlik REST API'sidir. Uç noktalar aşağıda özetlenmiştir:
+
+| Yöntem | Uç nokta | İşlev | Başarı / hata durumu |
+| --- | --- | --- | --- |
+| `GET` | `/health` | Sunucu sağlık kontrolü | `200 OK` |
+| `GET` | `/events` | Altı örnek etkinliği listeler | `200 OK` |
+| `GET` | `/events?category=Atölye` | Kategoriye göre etkinlikleri filtreler | `200 OK` |
+| `GET` | `/events/:id` | ID'ye göre etkinlik detayı | `200 OK` / `404 Not Found` |
+| `POST` | `/events` | Yeni etkinlik oluşturur | `201 Created` / `400 Bad Request` |
+
+`POST /events` isteğinde en az `title`, `category` ve `date` alanları gereklidir. Yanıtlar JSON biçimindedir; eksik veya geçersiz istekler uygun HTTP durum kodlarıyla karşılanır. Yeni kayıtlar sunucu belleğinde tutulduğu için backend yeniden başlatıldığında başlangıç verilerine dönülür.
+
+**Örnek istek:**
+
+```bash
+curl http://localhost:3000/events
+```
+
+Hazır Postman koleksiyonu `backend/requests/kampus-api.json` dosyasındadır. Koleksiyonun `baseUrl` değişkeni yerel geliştirme için `http://localhost:3000` olmalıdır. Sağlık kontrolü, listeleme, detay, bulunamayan ID, başarılı POST ve hatalı POST senaryoları koleksiyondan denenebilir.
 
 ## Form doğrulama kuralları
 
@@ -172,7 +233,16 @@ Ekleme ve düzenleme sayfaları **aynı** `EventForm` bileşenini farklı başla
 
 ## Test ve kalite kontrol
 
-Projenin `frontend/tests/` klasöründe etkinlik arama/filtreleme, form doğrulama, CRUD veri işlemleri ve yapısal gereksinim kontrollerini kapsayan testler vardır. Son kaynak denetiminde **25 otomatik test başarılı** olmuştur; bu sonuç gerçek tarayıcı davranışlarının ve üretim derlemesinin tamamının doğrulandığı anlamına gelmez.
+Projenin `frontend/tests/` klasöründe etkinlik arama/filtreleme, form doğrulama, CRUD veri işlemleri ve yapısal gereksinim kontrollerini kapsayan testler vardır. Sprint 6 kaynak denetiminde **25 frontend otomatik testi başarılı** olmuştur.
+
+Sprint 7'de `backend/tests/` altında API davranışları, hata durumları, temel veri doğrulama ve proje yapısını kontrol eden testler eklenmiştir. **11 Kasım 2026'da çalıştırılan backend testlerinin 13'ü de başarılıdır (13/13; 0 hata).** Backend testleri için:
+
+```bash
+cd backend
+npm test
+```
+
+Bu otomatik test sonuçları, üretim dağıtımının veya Postman üzerinden yapılan tüm manuel kontrollerin tamamlandığı anlamına gelmez.
 
 Teslimden önce aşağıdaki manuel testler yapılmalıdır:
 
@@ -184,6 +254,7 @@ Teslimden önce aşağıdaki manuel testler yapılmalıdır:
 - [ ] Etkinlik ve demo hesap formları geçersiz girdilerde doğru mesajı gösteriyor.
 - [ ] Mobil görünümde (ör. 375 px) tablo kartlara dönüşüyor, yatay taşma yok.
 - [ ] Vercel'de `/events/event-1` gibi alt URL doğrudan açılıyor ve yenilenebiliyor.
+- [ ] Backend açıkken Postman'da 200, 201, 400 ve 404 yanıtları manuel olarak doğrulanıyor.
 
 ## Vercel dağıtımı
 
@@ -198,21 +269,26 @@ GitHub deposu Vercel'e bağlandıktan sonra proje ayarlarında şunlar kullanıl
 
 `frontend/vercel.json` dosyası SPA fallback rewrite kuralı içerir. Böylece React Router ile tanımlanan alt URL'ler doğrudan açıldığında Vercel istekleri `index.html` dosyasına yönlendirir.
 
+**Not:** Yukarıdaki Vercel dağıtımı yalnızca frontend'i kapsar. Sprint 7 Express API'si bu yapılandırmayla Vercel'de yayınlanmaz; burada anlatılan API adresi yerel geliştirme ortamı içindir.
+
 **Teslimde canlı alan adı** öğretim görevlisinin istediği `isimsoyisim-frontend.vercel.app` biçiminde olmalıdır. Gerçek alan adı Vercel'de tanımlanıp doğrulandıktan sonra bu README'nin üst kısmındaki **Canlı demo** satırı güncellenmelidir; örnek veya henüz alınmamış bir adres canlı link olarak kullanılmamalıdır.
 
 ## Bilinen sınırlar
 
-1. **Kalıcı veri yok:** `events` React `useState` içinde tutulur; F5 ile altı başlangıç etkinliği geri gelir. `localStorage`, API veya veritabanı kullanılmaz.
-2. **Kimlik doğrulama demosu:** Giriş, kayıt ve şifre sıfırlama ekranları gerçek hesap oluşturmaz, oturum açmaz veya e-posta göndermez.
-3. **Yönetim erişimi:** `/admin` sayfası ders kapsamı gereği giriş denetimi olmadan açılır; üretim ortamına uygun bir yetkilendirme sistemi olarak değerlendirilmemelidir.
+1. **Kalıcı veri yok:** Frontend etkinlikleri React `useState`, backend etkinlikleri sunucu belleğinde tutulur. Sayfa yenileme veya sunucu yeniden başlatma ilgili verileri sıfırlayabilir; veritabanı kullanılmaz.
+2. **Frontend–backend bağlantısı:** İki katman aynı depoda yer alsa da frontend henüz Express API'sinden veri çekmez.
+3. **Kimlik doğrulama demosu:** Giriş, kayıt ve şifre sıfırlama ekranları gerçek hesap oluşturmaz, oturum açmaz veya e-posta göndermez.
+4. **Yönetim erişimi:** `/admin` sayfası ders kapsamı gereği giriş denetimi olmadan açılır; üretim ortamına uygun bir yetkilendirme sistemi olarak değerlendirilmemelidir.
 
 ## Teslim bilgileri
 
-**Ders:** Web Programlama · **Çalışma:** Sprint 6 + Vize  
+**Ders:** Web Programlama · **Çalışma:** Sprint 6 + Vize, Sprint 7 Backend  
 **Geliştirici:** Efe SARIHAN · **Öğrenci Numarası:** 2416501081
 
-Git etiketi, ilgili Sprint 6 yönergesinde **`frontend`** olarak istenmiştir. Etiket oluşturmadan önce `git tag --list frontend` ile aynı isimde eski bir etiket olup olmadığı kontrol edilmelidir. Güncel kaynak kodun GitHub'a gönderilmesi ve canlı Vercel bağlantısının README'ye eklenmesi teslim sürecinin ayrı aşamalarıdır.
+Sprint 6 yönergesindeki `frontend` etiketi, önceki frontend teslimiyle ilgilidir. **Sprint 7** için backend geliştirme adımları **5 ayrı commit** halinde GitHub `main` dalına gönderilmiş ve son sürüm **`sprint-07`** etiketiyle işaretlenmiştir.
+
+Sprint 7 commit sırası: Express kurulumu → etkinlik verileri ve GET → ID/404 kontrolleri → POST/doğrulama → Postman koleksiyonu, testler ve API dokümantasyonu. GitHub tesliminin doğrulanması ile Postman'daki manuel test/ekran görüntüsü kontrolleri ayrı adımlardır.
 
 ---
 
-*Bu depo, eğitim ve değerlendirme amacıyla hazırlanmış bir frontend projesidir.*
+*Bu depo, eğitim ve değerlendirme amacıyla hazırlanmış frontend ve backend bileşenlerinden oluşan bir Web Programlama projesidir.*
