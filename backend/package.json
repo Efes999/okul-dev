@@ -1,0 +1,20 @@
+{
+  "name": "kampus-etkinlikleri-sprint-7-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kampüs Etkinlikleri Sprint 7 - Express REST API | Efe SARIHAN - 2416501081",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1"
+  }
+}
