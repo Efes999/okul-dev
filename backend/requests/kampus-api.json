@@ -1,0 +1,208 @@
+{
+  "info": {
+    "name": "Kampüs API — Sprint 7 (Efe SARIHAN)",
+    "_postman_id": "fd3ea81b-81c2-4d94-9127-241650108100",
+    "description": "Altı istek: 4 GET + 2 POST. POST başarılı testinden sonra bellek içi etkinlik sayısı 7 olur. Öğrenci: 2416501081.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1 · Health — 200 öğrenci",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"200 + doğru öğrenci\", function () { pm.response.to.have.status(200); pm.expect(pm.response.json().student).to.eql(\"2416501081\"); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2 · Etkinlikler — 200 / 6 kayıt",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"200 + 6 kayıt\", function () { pm.response.to.have.status(200); pm.expect(pm.response.json()).to.have.lengthOf(6); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/events",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "events"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3 · Robotik Atölyesi — 200",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"200 + event-2\", function () { pm.response.to.have.status(200); pm.expect(pm.response.json().id).to.eql(\"event-2\"); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/events/event-2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "events",
+            "event-2"
+          ]
+        }
+      }
+    },
+    {
+      "name": "4 · Olmayan etkinlik — 404",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"404 error formatı\", function () { pm.response.to.have.status(404); pm.expect(pm.response.json().error.message).to.eql(\"Event not found\"); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/events/yok",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "events",
+            "yok"
+          ]
+        }
+      }
+    },
+    {
+      "name": "5 · Etkinlik ekle — 201",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"201 yeni id\", function () { pm.response.to.have.status(201); pm.expect(pm.response.json().id).to.match(/^event-\\d+$/); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/events",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "events"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Git Atölyesi\",\n  \"category\": \"Atölye\",\n  \"date\": \"2026-12-01\",\n  \"capacity\": 30,\n  \"time\": \"14:00\",\n  \"location\": \"Mühendislik Laboratuvarı\",\n  \"description\": \"Sürüm kontrolü ve ekip çalışması atölyesi.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "6 · Eksik veri — 400",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"400 zorunlu alan\", function () { pm.response.to.have.status(400); pm.expect(pm.response.json().error.message).to.include(\"required\"); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/events",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "events"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Yalnızca başlık\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}

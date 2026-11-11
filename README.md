@@ -6,7 +6,7 @@ React, TypeScript, React Router ve Context API ile geliştirilen, kampüs etkinl
 **Geliştirici:** Efe SARIHAN · **Öğrenci No:** 2416501081  
 **Teknolojiler:** React 19 · TypeScript 5 · Vite 7 · React Router 7 · Context API  
 **Kaynak kod:** [GitHub — okul-dev](https://github.com/Efes999/okul-dev)  
-**Canlı demo:** *Vercel yayını tamamlandığında doğrulanmış adres buraya eklenecektir.*
+**Canlı demo:** https://efesarihan-frontend.vercel.app/
 
 > **Proje kapsamı:** Sprint 6 / vize yönergesi kapsamında frontend uygulamasıdır. Gerçek kullanıcı hesapları, sunucu tarafı kimlik doğrulama ve kalıcı veritabanı bulunmaz. Etkinlik değişiklikleri uygulama açıkken React state'inde tutulur.
 
